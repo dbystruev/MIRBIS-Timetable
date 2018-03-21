@@ -22,6 +22,16 @@ extension Droplet {
         
         try resource("posts", PostController.self)
         
+        get("index") { req in
+            let path = self.config.publicDir + "index.html"
+            let res = try Response(filePath: path)
+            return res
+        }
+        
+        get("publicDir") { req in
+            return self.config.publicDir
+        }
+        
         get("/") { req in
             return Response(redirect: "info")
         }
